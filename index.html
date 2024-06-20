@@ -179,7 +179,7 @@
 
             <centering>
               <div style="text-align: center;">
-                <img id="teaser" width="85%" src="images/teaser.png">
+                <img id="teaser" width="85%" src="static/images/teaser.png">
               </div>
             </centering>
 
@@ -200,9 +200,9 @@
             <p>
 
               In traditional RAG framework, the basic retrieval units are normally short. The common retrievers like DPR normally work with 100-word Wikipedia paragraphs.
-              Such a design forces the retriever to search over a large corpus to find the ‘needle’ unit. In contrast, the readers only need to extract answers from the
+              Such a design forces the retriever to search over a large corpus to find the "needle" unit. In contrast, the readers only need to extract answers from the
               short retrieved units. Such an imbalanced heavy retriever and light reader design can lead to sub-optimal performance. In order to alleviate the imbalance,
-              we propose a new framework LongRAG, consisting of a ‘long retriever’ and a ‘long reader’. LongRAG processes the entire Wikipedia into 4K-token units, which is
+              we propose a new framework LongRAG, consisting of a "long retriever" and a "long reader". LongRAG processes the entire Wikipedia into 4K-token units, which is
               30x longer than before. By increasing the unit size, we significantly reduce the total units from 22M to 700K. This significantly lowers the burden of retriever,
               which leads to a remarkable retrieval score: answer recall@1=71% on NQ (previously 52%) and answer recall@2=72% (previously 47%) on HotpotQA (full-wiki). Then
               we feed the top-k retrieved units (≈ 30K tokens) to an existing long-context LLM to perform zero-shot answer extraction. Without requiring any training, LongRAG
@@ -219,7 +219,15 @@
     </div>
   </section>
 
+  <section class="section">
+    <!-- Results. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3"><img id="painting_icon" width="3%" src="https://cdn-icons-png.flaticon.com/512/3515/3515174.png"> Performance</h2>
+      </div>
+    </div>
 
+  </section>
 
 
 
