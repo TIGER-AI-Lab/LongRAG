@@ -1,0 +1,233 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="text-to-video generation evaluation">
+  <meta name="keywords" content="multimodal evaluation">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MantisScore</title>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link rel="icon" href="images/logo3.png?v=2">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
+  <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/4.16.0/gradio.js"></script>
+</head>
+
+<style>
+  .expandable-card .card-text-container {
+    max-height: 200px;
+    overflow-y: hidden;
+    position: relative;
+  }
+
+  .expandable-card.expanded .card-text-container {
+    max-height: none;
+  }
+
+  .expand-btn {
+    position: relative;
+    display: none;
+    background-color: rgba(255, 255, 255, 0.8);
+    /* margin-top: -20px; */
+    /* justify-content: center; */
+    color: #510c75;
+    border-color: transparent;
+  }
+
+  .expand-btn:hover {
+    background-color: rgba(200, 200, 200, 0.8);
+    text-decoration: none;
+    border-color: transparent;
+    color: #510c75;
+  }
+
+  .expand-btn:focus {
+    outline: none;
+    text-decoration: none;
+  }
+
+  .expandable-card:not(.expanded) .card-text-container:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 90px;
+    background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 1));
+  }
+
+  .expandable-card:not(.expanded) .expand-btn {
+    margin-top: -40px;
+  }
+
+  .card-body {
+    padding-bottom: 5px;
+  }
+
+  .vertical-flex-layout {
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .figure-img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .adjustable-font-size {
+    font-size: calc(0.5rem + 2vw);
+  }
+
+  .chat-history {
+    flex-grow: 1;
+    overflow-y: auto;
+    /* overflow-x: hidden; */
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+  }
+
+  #gradio pre {
+    background-color: transparent;
+  }
+</style>
+
+<body>
+
+<!----------------------------------------- Title and Authors. --------------------------------------------------->
+<section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title is-bold">
+              <img id="painting_icon" width="3%" src="{{ url_for('static', filename='images/logo3.png') }}">
+              LongRAG </h1>
+              <h2 class="subtitle is-3 publication-subtitle"> Enhancing Retrieval-Augmented Generation with Long-context LLMs</h2>
+              <br>
+              <div class="is-size-5 publication-authors">
+                  <span class="author-block">
+                    <sup style="color:#ffac33;">1</sup><sup>,</sup><sup style="color:#007bff;">2</sup><sup>,†</sup>
+                    <a href="https://xmhzz2018.github.io/" style="font-weight:normal;">Ziyan Jiang</a>,
+                  </span>
+                  <span class="author-block">
+                    <sup style="color:#ffac33;">1</sup><sup>,†</sup>
+                    <a href="https://mxueguang.github.io/" style="font-weight:normal;">Xueguang Ma</a>,
+                  </span>
+                  <span class="author-block">
+                    <sup style="color:#ffac33;">1,</sup><sup>,†</sup>
+                    <a href="https://wenhuchen.github.io/" style="font-weight:normal;">Wenhu Chen</a>
+                  </span>
+              </div>
+            <br>
+            <div class="is-size-5 publication-authors">
+                <span class="author-block">
+                    <sup style="color:#ffac33;">1</sup>University of Waterloo
+                </span>
+            </div>
+            <br>
+            <div class="is-size-5 publication-authors">
+                <span class="author-block">†Corresponding to:</span>
+                <span class="author-block"><a href="mailto:ziyanjiang528@gmail.com">ziyanjiang528@gmail.com</a>,</span>
+                <span class="author-block"><a href="mailto:wenhuchen@uwaterloo.ca">wenhuchen@uwaterloo.ca</a></span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <span class="link-block">
+                  <a href="" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="https://github.com/TIGER-AI-Lab/LongRAG/" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon has-text-white">
+                    <i class="fab fa-twitter"></i>
+                  </span>
+                  <span>Twitter</span>
+                </a>
+              </span>
+
+              </div>
+            </div>
+
+<!--            <centering>-->
+<!--              <div style="text-align: center;">-->
+<!--                <img id="teaser" width="85%" src="{{ url_for('static', filename='images/teaser.png') }}">-->
+<!--              </div>-->
+<!--            </centering>-->
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section"  style="background-color:#efeff081">
+    <div class="container is-max-desktop">
+      <!-- Abstract. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-six-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+
+              In traditional RAG framework, the basic retrieval units are normally short. The common retrievers like DPR normally work with 100-word Wikipedia paragraphs.
+              Such a design forces the retriever to search over a large corpus to find the ‘needle’ unit. In contrast, the readers only need to extract answers from the
+              short retrieved units. Such an imbalanced heavy retriever and light reader design can lead to sub-optimal performance. In order to alleviate the imbalance,
+              we propose a new framework LongRAG, consisting of a ‘long retriever’ and a ‘long reader’. LongRAG processes the entire Wikipedia into 4K-token units, which is
+              30x longer than before. By increasing the unit size, we significantly reduce the total units from 22M to 700K. This significantly lowers the burden of retriever,
+              which leads to a remarkable retrieval score: answer recall@1=71% on NQ (previously 52%) and answer recall@2=72% (previously 47%) on HotpotQA (full-wiki). Then
+              we feed the top-k retrieved units (≈ 30K tokens) to an existing long-context LLM to perform zero-shot answer extraction. Without requiring any training, LongRAG
+              achieves an EM of 62.7% on NQ, which is the best known result. LongRAG also achieves 64.3% on HotpotQA (full-wiki), which is on par of the SoTA model. Our study
+              offers insights into the future roadmap for combining RAG with long-context LLMs. <br>
+
+
+           </p>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+
+
+
+</body>
+
+</html>
