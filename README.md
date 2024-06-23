@@ -9,12 +9,12 @@ Our dataset are all available at Huggingface.
 
 ## **Table of Contents**
 - [Introduction](#introduction)
-- [Quick Start](#qucick-start)
+- [Quick Start](#quick-start)
 - [Installation](#installation)
 - [Corpus Preparation](#corpus)
 - [Long Retriever](#long-retriever)
 - [Long Reader](#long-reader)
-- [Evaluation](#eval)
+- [Evaluation](#evaluation)
 - [License](#license)
 - [Citation](#citation)
 
@@ -78,7 +78,7 @@ Please check out the license of each subset we use in our work.
 
 ## **Citation**
 
-Please cite our paper if you use our data, model or code. Please also kindly cite the original dataset papers. 
+Please cite our paper if you use our data, model or code.
 
 ```
 @article{longrag,
