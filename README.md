@@ -52,7 +52,20 @@ sh scripts/group_documents.sh
 
 We have released our retrieval corpus.
 
+## **Long Retriever**
+We leverage open-sourced dense retrieval toolkit, Tevatron. For all our retrieval experiments. 
+The base embedding model we used is bge-large-en-v1.5.
+```bash
+sh scripts/run_retrieve_tevatron.sh
+```
 
+## **Long Reader**
+We select Gemini-1.5-Pro and GPT-4o as our long reader given their strong ability
+to handle long context input.
+
+```bash
+sh scripts/run_eval_qa.sh
+```
 
 ## **License**
 Please check out the license of each subset we use in our work.
