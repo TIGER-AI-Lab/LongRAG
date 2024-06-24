@@ -1,6 +1,6 @@
 # **LongRAG** 
 This repo contains the code for "LongRAG: Enhancing Retrieval-Augmented Generation
-with Long-context LLMs". We are still in the process to polish our repo.
+with Long-context LLMs". <span style="color: red;">We are still in the process to polish our repo.</span>
 
 ### Datasets and Models
 Our dataset are all available at Huggingface.
@@ -88,7 +88,7 @@ Please cite our paper if you use our data, model or code.
 @article{longrag,
   title={LongRAG: Enhancing Retrieval-Augmented Generation with Long-context LLMs},
   author={Ziyan Jiang, Xueguang Ma, Wenhu Chen},
-  journal={arXiv preprint},
+  journal={arXiv preprint arXiv:2406.15319},
   year={2024}
 }
 ```
