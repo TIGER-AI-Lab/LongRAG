@@ -64,8 +64,10 @@ sh scripts/group_documents.sh
 We have released our retrieval corpus.
 
 ## **Long Retriever**
-We leverage open-sourced dense retrieval toolkit, Tevatron. For all our retrieval experiments. 
-The base embedding model we used is bge-large-en-v1.5.
+We leverage open-sourced dense retrieval toolkit, [Tevatron](https://github.com/texttron/tevatron). For all our retrieval experiments. 
+The base embedding model we used is bge-large-en-v1.5. We have provided a sample script; make sure to update the parameters with your 
+own dataset path. Additionally, our script uses 4 GPUs to encode the corpus for time saving; please update this based on your own 
+use case.
 ```bash
 sh scripts/run_retrieve_tevatron.sh
 ```
