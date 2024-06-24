@@ -27,8 +27,12 @@ with Long-context LLMs". <span style="color: red;">We are still in the process t
 
 
 ## **Introduction**
-In order to alleviate the imbalance burden between the retriever and reader of the RAG framework, 
-we propose a new framework LongRAG, consisting of a ‘long retriever’ and a ‘long reader’.
+In traditional RAG framework, the basic retrieval units are normally short. Such a design forces the 
+retriever to search over a large corpus to find the "needle" unit. In contrast, the readers only need 
+to extract answers from the short retrieved units. Such an imbalanced heavy retriever and light reader
+design can lead to sub-optimal performance. We propose a new framework LongRAG, consisting of a 
+"long retriever" and a "long reader". Our framework use a 4K-token retrieval unit, which is 30x longer than before. 
+Our study offers insights into the future roadmap for combining RAG with long-context LLMs.
 
 ## **Installation**
 
@@ -44,9 +48,18 @@ Please go to the "Long Reader" section and follow the instructions. This will he
 The output will be similar to our sample files in the ``exp/`` directory.
 
 ## **Corpus Preparation (Optional)**
+This is an optional step. You can use our processed corpus directly. We have released two versions of the retrieval corpus for 
+NQ and HotpotQA on Hugging Face.
+```python
+from datasets import load_dataset
+corpus_nq = load_dataset("TIGER-Lab/LongRAG", "nq_corpus")
+corpus_hotpotqa = load_dataset("TIGER-Lab/LongRAG", "hotpot_qa_corpus")
+```
+
+If you are still interested in how we process the corpus, you can start reading here.
 
 ***Wikipedia preprocess:***
-We first preprocess Wikipedia raw data. 
+We first preprocess Wikipedia raw data following the stardard process. 
 The processed Wikipedia data is "Wiki-NQ" and "Wiki-HotpotQA" subset in our huggingface.
 "Wiki-NQ" is the processed Wikipedia dumps from December 20, 2018. "Wiki-HotpotQA" is 
 the abstract paragraphs from the October 1, 2017, dump.
@@ -66,7 +79,7 @@ We have released our retrieval corpus.
 ## **Long Retriever**
 We leverage open-sourced dense retrieval toolkit, [Tevatron](https://github.com/texttron/tevatron). For all our retrieval experiments. 
 The base embedding model we used is bge-large-en-v1.5. We have provided a sample script; make sure to update the parameters with your 
-own dataset path. Additionally, our script uses 4 GPUs to encode the corpus for time saving; please update this based on your own 
+own dataset local path. Additionally, our script uses 4 GPUs to encode the corpus for time saving; please update this based on your own 
 use case.
 ```bash
 sh scripts/run_retrieve_tevatron.sh

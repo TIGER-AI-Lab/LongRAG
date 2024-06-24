@@ -5,7 +5,7 @@ WIKI_DUMP_FILE_IN=$1
 WIKI_DUMP_FILE_OUT=${WIKI_DUMP_FILE_IN%%.*}.txt
 
 # clone the WikiExtractor repository
-# git clone https://github.com/attardi/wikiextractor.git
+ git clone https://github.com/attardi/wikiextractor.git
 
 # extract and clean the chosen Wikipedia dump
 echo "Extracting and cleaning $WIKI_DUMP_FILE_IN to $WIKI_DUMP_FILE_OUT..."
