@@ -1,5 +1,7 @@
 import anthropic
 from utils.load_data_util import load_json_file
+from datasets import load_dataset
+import re
 
 
 class ClaudeInference:
@@ -10,7 +12,7 @@ class ClaudeInference:
 
     def predict(self, system_prompt, prompt):
         message = self.client.messages.create(
-            model="claude-3-opus-20240229",
+            model="claude-3-5-sonnet-20240620",
             max_tokens=1024,
             system=system_prompt,
             messages=[
@@ -18,7 +20,7 @@ class ClaudeInference:
             ],
             temperature=0,
         )
-        return message.content[0].text
+        return self.post_process(message.content[0].text)
 
     def post_process(self, text):
         match = re.search(r"(?i)(?<=\banswer:\s).*", text)
@@ -27,9 +29,8 @@ class ClaudeInference:
         else:
             return text
 
-    def predict_close_book(self, question, num_demo=16):
-        demo = load_json_file("/home/ziyjiang/LongRAG_Data/HotpotQA/demo.json")
-        # demo = load_json_file("/home/ziyjiang/LongRAG_Data/nq/demo_32.json")
+    def predict_close_book(self, question, demo_file_path, num_demo=16):
+        demo = load_json_file(demo_file_path)
         system_prompt = ("Here are some examples of questions and their corresponding answer, each with a 'Question' field and an 'Answer' field. "
                          "Answer the question directly and don't output other thing. The answer should be very concise")
         for item in demo[:num_demo]:
@@ -49,12 +50,25 @@ class ClaudeInference:
         short_answer = self.extract_answer(question, long_answer)
         return long_answer, short_answer
 
+    def predict_hotpotqa(self, context, question, titles):
+        prompt = (f"Go through the following context and then answer the question "
+                  f"The context is a list of Wikipedia documents titled: {titles}. "
+                  f"There are two types of questions: comparison questions, which require a yes or no answer or a selection from two candidates, "
+                  f"and general questions, which demand a concise response. "
+                  f"The context is: {context}. "
+                  f"Find the useful documents from the context, then answer the question: {question}."
+                  f"For general questions, you should use the exact words from the context as the answer to avoid ambiguity. "
+                  f"Answer the question directly and don't output other thing.  ")
+        long_answer = self.predict("", prompt)
+        short_answer = self.extract_answer(question, long_answer)
+        return long_answer, short_answer
+
     def generate_demo_examples(self, num_demo=4):
         if num_demo == 0:
             return ""
-        demo_data = load_json_file("/home/ziyjiang/LongRAG_Data/nq/short_answer_demo.json")
+        demo_data = load_dataset("TIGER-Lab/LongRAG", "answer_extract_example")['train']
         demo_prompt = "Here are some examples: "
-        for item in demo_data[:num_demo]:
+        for item in demo_data.select(range(num_demo)):
             for answer in item["answers"]:
                 demo_prompt += f"Question: {item["question"]}\nLong Answer: {item["long_answer"]}\nShort Answer: {answer}\n\n"
         return demo_prompt
