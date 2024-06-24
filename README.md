@@ -64,14 +64,37 @@ We select Gemini-1.5-Pro and GPT-4o as our long reader given their strong abilit
 to handle long context input. (We also plan to test other LLMs capable of handling long contexts in the future.)
 
 The input of the reader is a concatenation of all the long retrieval units from the long retriever.
-We have provided the input file in our Huggingface repo. For each dataset(NQ or HotpotQA), there are 
-three splits: ``full``, ``subset_1000``, ``subset_100``. We suggest starting with ``subset_100`` for a 
-quick start or debugging and using ``subset_1000`` to obtain relatively stable results.
+We have provided the input file in our Huggingface repo.
 
 ```bash
 mkdir -p exp/
 sh scripts/run_eval_qa.sh
 ```
++ ``test_data_name``: Test set name, ``nq`` (NQ) or ``hotpot_qa`` (HotpotQA).
++ ``test_data_split``: For each test set, there are three splits: ``full``, ``subset_1000``, ``subset_100``. We suggest starting with ``subset_100`` for a 
+quick start or debugging and using ``subset_1000`` to obtain relatively stable results.
++ ``output_file_path``: The output file, here it's placed in the ``exp/`` directory.
++ ``reader_model``: The long context reader model we use, currently our code support ``GPT-4o``, ``GPT-4-Turbo``, ``Gemini-1.5-Pro``, ``Claude-3-Opus``.
+Please note that you need to update the related API key and API configuration in the code. For example, if you are using the GPT-4 series, you need to 
+configure the code in  ``utils/gpt_inference.py``; if you are using the Gemini series, you need to configure the code in  ``utils/gemini_inference``. 
+We will continue to support more models in the future.
+
+The output file contains one test case per row. The ``short_ans`` field is our final prediction.
+
+```json
+{
+    "query_id": "383", 
+    "question": "how many episodes of touching evil are there", 
+    "answers": ["16"], 
+    "long_ans": "16 episodes.", 
+    "short_ans": "16", 
+    "is_exact_match": 1, 
+    "is_substring_match": 1, 
+    "is_retrieval": 1
+}
+```
+We have provided some sample output files in our `exp/` directory.
+
 
 ## **License**
 Please check out the license of each subset we use in our work.
