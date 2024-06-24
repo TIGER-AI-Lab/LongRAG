@@ -97,12 +97,6 @@ dictionary for the retrieval corpus. The most important one is ``group_text.pick
 corpus text. For more details, please refer to our released corpus on Hugging Face.
 
 
-
-
-
-
-
-
 ## **Long Retriever**
 We leverage open-sourced dense retrieval toolkit, [Tevatron](https://github.com/texttron/tevatron). For all our retrieval experiments. 
 The base embedding model we used is bge-large-en-v1.5. We have provided a sample script; make sure to update the parameters with your 
