@@ -1,5 +1,6 @@
 import google.generativeai as genai
 from utils.load_data_util import load_json_file
+from datasets import load_dataset
 import re
 
 
@@ -63,15 +64,7 @@ class GeminiInference:
         short_answer = self.extract_answer(question, long_answer)
         return long_answer, short_answer
 
-    def predict_psg(self, prompt):
-        system_prompt = (f"A question and its related context are provided. "
-                         f"The context is a list of Wikipedia passages, which must contain the necessary information to answer the question. "
-                         f"Your response should be concise, ranging from a few words to a few sentences. "
-                         f"Please make sure to answer the question using only the information from the context.")
-        long_answer = self.predict(system_prompt + prompt)
-        return long_answer
-
-    def predict_hqa(self, context, question, titles):
+    def predict_hotpotqa(self, context, question, titles):
         prompt = (f"Go through the following context and then answer the question "
                   f"The context is a list of Wikipedia documents titled: {titles}. "
                   f"There are two types of questions: comparison questions, which require a yes or no answer or a selection from two candidates, "
@@ -84,9 +77,8 @@ class GeminiInference:
         short_answer = self.extract_answer(question, long_answer)
         return long_answer, short_answer
 
-    def predict_close_book(self, question, num_demo=16):
-        # demo = load_json_file("/home/ziyjiang/LongRAG_Data/HotpotQA/demo.json")
-        demo = load_json_file("/home/ziyjiang/LongRAG_Data/nq/demo_32.json")
+    def predict_close_book(self, question, demo_file_path, num_demo=16):
+        demo = load_json_file(demo_file_path)
         prompt = ("Here are some examples of questions and their corresponding answer, each with a 'Question' field and an 'Answer' field. "
                   "Answer the question directly and don't output other thing. ")
         for item in demo[:num_demo]:
@@ -98,9 +90,9 @@ class GeminiInference:
     def generate_demo_examples(self, num_demo=4):
         if num_demo == 0:
             return ""
-        demo_data = load_json_file("/home/ziyjiang/LongRAG_Data/nq/short_answer_demo.json")
+        demo_data = load_dataset("TIGER-Lab/LongRAG", "answer_extract_example")['train']
         demo_prompt = "Here are some examples: "
-        for item in demo_data[:num_demo]:
+        for item in demo_data.select(range(num_demo)):
             for answer in item["answers"]:
                 demo_prompt += f"Question: {item["question"]}\nLong Answer: {item["long_answer"]}\nShort Answer: {answer}\n\n"
         return demo_prompt

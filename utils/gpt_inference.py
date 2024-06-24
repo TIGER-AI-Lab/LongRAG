@@ -42,11 +42,11 @@ class GPTInference:
         response = self.post_process(response.choices[0].message.content)
         return response
 
-    def predict_close_book(self, question, num_demo=16):
-        # demo = load_json_file("")
+    def predict_close_book(self, question, demo_file_path, num_demo=16):
+        demo = load_json_file(demo_file_path)
         prompt = ("Here are some examples of questions and their corresponding answer, each with a 'Question' field and an 'Answer' field. "
                   "Answer the question directly and don't output other thing. ")
-        for item in self.demo[:num_demo]:
+        for item in demo[:num_demo]:
             prompt += f"Question: {item['question']} Answer: {item['short_answers'][0]}\n"
         prompt += f"Question: {question} Answer: "
         answer = self.predict(prompt)
