@@ -90,8 +90,18 @@ information completeness to avoid ambiguity or confusion.
 ```bash
 sh scripts/group_documents.sh
 ```
++ ``processed_wiki_dir``: The output directory of the above step.
++ ``mode``: ``abs`` is for HotpotQA corpus, ``full`` is for NQ corpus.
++ ``output_dir``: The output directory, The output directory will contain several pickle files, each representing a 
+dictionary for the retrieval corpus. The most important one is ``group_text.pickle``, which maps the corpus ID to the 
+corpus text. For more details, please refer to our released corpus on Hugging Face.
 
-We have released our retrieval corpus.
+
+
+
+
+
+
 
 ## **Long Retriever**
 We leverage open-sourced dense retrieval toolkit, [Tevatron](https://github.com/texttron/tevatron). For all our retrieval experiments. 

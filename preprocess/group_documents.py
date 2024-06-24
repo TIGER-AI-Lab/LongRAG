@@ -18,20 +18,6 @@ def update_degree_dict(degree, corpus_title_set):
     return degree
 
 
-def eval():
-    retrieval_output_path = "/home/ziyjiang/LongRAG_Data/HotpotQA/hqa_retrieval_psg_200_wiki_2017.json"
-    retrieval_output = load_json_file(retrieval_output_path)
-    tt = 0
-    for item in tqdm(retrieval_output, desc="Evaluating"):
-        sp1, sp2 = item["sp"][0], item["sp"][1]
-        try:
-            if doc_group_map[sp1] == doc_group_map[sp2] and doc_group_map[sp1] != -1:
-                tt += 1
-        except KeyError:
-            continue
-    return tt
-
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--processed_wiki_dir", type=str, default=None, help="Path to the processed Wikipedia dir)")
@@ -93,9 +79,6 @@ if __name__ == "__main__":
             group_title[group_id] = new_cluster
             for i in new_cluster:
                 doc_group_map[i] = group_id
-
-        num_correct = eval()
-        print(num_correct)
 
     id_set = set(doc_group_map.values())
     sorted_id = sorted(list(id_set))

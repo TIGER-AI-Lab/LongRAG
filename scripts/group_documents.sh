@@ -1,9 +1,4 @@
 python group_documents.py \
-  --processed_wiki_dir "/home/ziyjiang/LongRAG_Data/wiki_2017_abstract" \
+  --processed_wiki_dir "" \
   --mode "abs" \
-  --output_dir "/home/ziyjiang/LongRAG_Data/wiki_2017_abstract_uni"
-
-#python group_documents.py \
-#  --processed_wiki_dir "/home/ziyjiang/LongRAG_Data/wiki" \
-#  --mode "full" \
-#  --output_dir "/home/ziyjiang/LongRAG_Data/wiki"
+  --output_dir ""
