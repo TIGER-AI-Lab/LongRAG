@@ -61,13 +61,15 @@ sh scripts/run_retrieve_tevatron.sh
 
 ## **Long Reader**
 We select Gemini-1.5-Pro and GPT-4o as our long reader given their strong ability
-to handle long context input.
+to handle long context input. (We also plan to test other LLMs capable of handling long contexts in the future.)
+
 The input of the reader is a concatenation of all the long retrieval units from the long retriever.
 We have provided the input file in our Huggingface repo. For each dataset(NQ or HotpotQA), there are 
 three splits: ``full``, ``subset_1000``, ``subset_100``. We suggest starting with ``subset_100`` for a 
 quick start or debugging and using ``subset_1000`` to obtain relatively stable results.
 
 ```bash
+mkdir -p exp/
 sh scripts/run_eval_qa.sh
 ```
 
