@@ -297,12 +297,85 @@
         <div class="container is-max-desktop">
             <div class="columns is-centered has-text-centered">
                 <div class="column is-four-fifths">
-                    <div class="item">
-                        <!-- Your image here -->
-                        <img src="static/images/retrieval_nq.png" alt="MY ALT TEXT" />
-                        <h2 class="subtitle has-text-centered">
-                            Figure 3: The retrieval performance on NQ.
-                        </h2>
+                      <div class="container">
+                        <table class="table is-bordered is-narrow is-hoverable is-fullwidth">
+                          <thead>
+                            <tr>
+                              <th rowspan="2">Retrieval Unit</th>
+                              <th rowspan="2">Corpus Size</th>
+                              <th rowspan="2">Num of Retrieval Units</th>
+                              <th colspan="2">Average Num of Tokens</th>
+                              <th rowspan="2">Answer Recall (AR)</th>
+                            </tr>
+                            <tr>
+                              <th>Corpus</th>
+                              <th>Test Set</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td rowspan="3">Passage</td>
+                              <td rowspan="3">22M</td>
+                              <td>1</td>
+                              <td>120</td>
+                              <td>130</td>
+                              <td>52.24</td>
+                            </tr>
+                            <tr>
+                              <td>100</td>
+                              <td>12K</td>
+                              <td>14K</td>
+                              <td>89.92</td>
+                            </tr>
+                            <tr>
+                              <td>200</td>
+                              <td>24K</td>
+                              <td>28K</td>
+                              <td>91.30</td>
+                            </tr>
+                            <tr>
+                              <td rowspan="3">Document</td>
+                              <td rowspan="3">3M</td>
+                              <td>1</td>
+                              <td>820</td>
+                              <td>4K</td>
+                              <td>69.45</td>
+                            </tr>
+                            <tr>
+                              <td>5</td>
+                              <td>4K</td>
+                              <td>18K</td>
+                              <td>85.37</td>
+                            </tr>
+                            <tr>
+                              <td>10</td>
+                              <td>8K</td>
+                              <td>34K</td>
+                              <td>88.12</td>
+                            </tr>
+                            <tr>
+                              <td rowspan="3">Grouped Documents</td>
+                              <td rowspan="3">600K</td>
+                              <td>1</td>
+                              <td>4K</td>
+                              <td>6K</td>
+                              <td>71.69</td>
+                            </tr>
+                            <tr>
+                              <td>4</td>
+                              <td>16K</td>
+                              <td>25K</td>
+                              <td>86.30</td>
+                            </tr>
+                            <tr>
+                              <td>8</td>
+                              <td>32K</td>
+                              <td>50K</td>
+                              <td>88.53</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                         <p style="text-align: left;">
                             Employing a long-context retriever (with an average number of tokens for each retrieval unit up to 6K) compresses the corpus size by up to 30 times (from 22M to
                             600K), enhancing top-1 answer recall by approximately 20 points (from 52.24 to 71.69). Furthermore, long-context retrieval requires significantly fewer retrieval
