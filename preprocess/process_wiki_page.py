@@ -1,3 +1,4 @@
+import argparse
 import bz2
 from collections import defaultdict
 import csv
@@ -95,16 +96,16 @@ def get_doc_size():
 
 
 if __name__ == "__main__":
-    enc = tiktoken.get_encoding("cl100k_base")
-    corpus_title_set = load_dpr_wiki("/home/ziyjiang/LongRAG_Data/wiki/psgs_w100.tsv")
+    parser.add_argument("--dir_path", type=str, default=None, help="Path to the cleaned Wikipedia dir)")
+    parser.add_argument("--output_path_dir", type=str, default=None, help="Output dir")
 
-    dir_path = Path("/home/ziyjiang/LongRAG_Data/wiki/wiki_raw/")
-    file_paths = [file_path for file_path in dir_path.rglob('*') if file_path.is_file()]
+    enc = tiktoken.get_encoding("cl100k_base")
+
+    file_paths = [file_path for file_path in args.dir_path.rglob('*') if file_path.is_file()]
 
     util = ProcessWikipedia(func=process_wiki, data=file_paths, n_processes=16)
     processed_data = util.process_data()
 
-    output_path_dir = Path("/home/ziyjiang/LongRAG_Data/wiki/")
     doc_size = get_doc_size()
     title_set = set(doc_size.keys())
     title_map = {title.lower(): title for title in title_set}
@@ -112,14 +113,14 @@ if __name__ == "__main__":
     abs_adj, full_adj = get_adjacency()
     degree = get_degree_dict()
 
-    save_dict_pickle(degree, os.path.join(output_path_dir, 'degree.pickle'))
-    save_dict_pickle(abs_adj, os.path.join(output_path_dir, 'abs_adj.pickle'))
-    save_dict_pickle(full_adj, os.path.join(output_path_dir, 'full_adj.pickle'))
-    save_dict_pickle(doc_size, os.path.join(output_path_dir, 'doc_size.pickle'))
+    save_dict_pickle(degree, os.path.join(args.output_path_dir, 'degree.pickle'))
+    save_dict_pickle(abs_adj, os.path.join(args.output_path_dir, 'abs_adj.pickle'))
+    save_dict_pickle(full_adj, os.path.join(args.output_path_dir, 'full_adj.pickle'))
+    save_dict_pickle(doc_size, os.path.join(args.output_path_dir, 'doc_size.pickle'))
     print(f"Num of All Pages: {len(title_set)}")
     print(f"Size of Corpus: {len(corpus_title_set)}")
 
     doc_dict = {}
     for item in tqdm(processed_data, desc="Generate doc dict"):
         doc_dict[item["title"]] = item["text"]
-    save_dict_pickle(doc_dict, os.path.join(output_path_dir, 'doc_dict.pickle'))
+    save_dict_pickle(doc_dict, os.path.join(args.output_path_dir, 'doc_dict.pickle'))

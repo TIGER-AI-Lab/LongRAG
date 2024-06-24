@@ -56,13 +56,30 @@ corpus_nq = load_dataset("TIGER-Lab/LongRAG", "nq_corpus")
 corpus_hotpotqa = load_dataset("TIGER-Lab/LongRAG", "hotpot_qa_corpus")
 ```
 
-If you are still interested in how we process the corpus, you can start reading here.
+If you are still interested in how we craft the corpus, you can start reading here.
 
-***Wikipedia preprocess:***
-We first preprocess Wikipedia raw data following the stardard process. 
-The processed Wikipedia data is "Wiki-NQ" and "Wiki-HotpotQA" subset in our huggingface.
-"Wiki-NQ" is the processed Wikipedia dumps from December 20, 2018. "Wiki-HotpotQA" is 
-the abstract paragraphs from the October 1, 2017, dump.
+***Wikipedia raw data clean:***
+We first clean Wikipedia raw data by following the standard process. We use [WikiExtractor](https://github.com/attardi/wikiextractor).
+This is a widely-used Python script that extracts and cleans text from a Wikipedia database backup dump. Please ensure you use the required 
+Python environment. A sample script is:
+```bash
+sh scripts/extract_and_clean_wiki_dump.sh
+```
+
+***Preprocess Wikipedia data***
+We are planning to release this data on huggingface too, stay tuned!
+After cleaning the Wikipedia raw data, run the following script to gather more information.
+```bash
+sh scripts/process_wiki_page.sh
+```
++ ``dir_path``: The directory path of the cleaned Wikipedia dump, which is the output of the previous step.
++ ``output_path_dir``: The output directory will contain several pickle files, each representing a dictionary for the Wikipedia page. 
+``degree.pickle``: The key is the Wikipedia page title, and the value is the number of hyperlinks.
+``abs_adj.pickle``: The key is the Wikipedia page title, and the value is the linked page in the abstract paragraph.
+``full_adj.pickle``: The key is the Wikipedia page title, and the value is the linked page in the entire page.
+``doc_size.pickle``: The key is the Wikipedia page title, and the value is the number of tokens on that page.
+``doc_dict.pickle``: The key is the Wikipedia page title, and the value is the text of the page.
+
 
 ***Retrieval Corpus:*** By grouping multiple related documents, we can construct long 
 retrieval units with more than 4K tokens. This design could also significantly reduce 
