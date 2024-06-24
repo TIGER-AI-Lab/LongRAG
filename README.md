@@ -8,7 +8,9 @@ with Long-context LLMs". <span style="color: red;">We are still in the process t
 <img style="height:22pt" src="https://img.shields.io/badge/-Code-green?style=flat&logo=github"></a>
 <a target="_blank" href="https://tiger-ai-lab.github.io/LongRAG/">
 <img style="height:22pt" src="https://img.shields.io/badge/-🌐%20Website-blue?style=flat"></a>
-<a target="_blank" href="https://https://huggingface.co/datasets/TIGER-Lab/LongRAG">
+<a target="_blank" href="https://huggingface.co/datasets/TIGER-Lab/LongRAG">
+<img style="height:22pt" src="https://img.shields.io/badge/-🤗%20Dataset-red?style=flat"></a>
+<a target="_blank" href="">
 <img style="height:22pt" src="https://img.shields.io/badge/-Tweet-blue?style=flat&logo=twitter"></a>
 <br>
 
@@ -20,7 +22,6 @@ with Long-context LLMs". <span style="color: red;">We are still in the process t
 - [Corpus Preparation](#corpus)
 - [Long Retriever](#long-retriever)
 - [Long Reader](#long-reader)
-- [Evaluation](#evaluation)
 - [License](#license)
 - [Citation](#citation)
 
@@ -39,6 +40,8 @@ pip install -r requirements.txt
 ```
 
 ## **Quick Start**
+Please go to the "Long Reader" section and follow the instructions. This will help you get the final prediction for 100 examples. 
+The output will be similar to our sample files in the ``exp/`` directory.
 
 ## **Corpus Preparation**
 
@@ -123,7 +126,7 @@ Please check out the license of each subset we use in our work.
 
 ## **Citation**
 
-Please cite our paper if you use our data, model or code.
+Please kindly cite our paper if you find our project is useful:
 
 ```
 @article{jiang2024longrag
