@@ -93,8 +93,16 @@ The output file contains one test case per row. The ``short_ans`` field is our f
     "is_retrieval": 1
 }
 ```
-We have provided some sample output files in our `exp/` directory.
-
+We have provided some sample output files in our `exp/` directory. For example, ``exp/nq_gpt4o_100.json`` contains
+the result from the running file:
+```bash
+python eval/eval_qa.py \
+  --test_data_name "nq" \
+  --test_data_split "subset_100" \
+  --output_file_path "./exp/nq_gpt4o_100.json" \
+  --reader_model "GPT-4o"
+```
+The top-1 retrieval accuracy is 88%, and the exact match rate is 64%.
 
 ## **License**
 Please check out the license of each subset we use in our work.
