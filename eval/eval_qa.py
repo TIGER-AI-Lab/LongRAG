@@ -24,11 +24,12 @@ if __name__ == "__main__":
         llm_inference = GPTInference()
     elif args.reader_model == "Gemini":
         llm_inference = GeminiInference()
+    elif args.reader_model == "Claude":
+        llm_inference = ClaudeInference()
 
     output_file = open(args.output_file_path, 'w')
     enc = tiktoken.get_encoding("cl100k_base")
-    substring_match = 0
-    exact_match = 0
+    substring_match, exact_match, retrieval = 0, 0, 0
     tt = 0
     context_sizes = []
     start_time = time.time()
@@ -39,13 +40,19 @@ if __name__ == "__main__":
         context_size = len(enc.encode(context))
         context_sizes.append(context_size)
         try:
-            long_ans, short_ans = llm_inference.predict_nq(context, question, context_titles)
+            if args.test_data_name == "nq":
+                long_ans, short_ans = llm_inference.predict_nq(context, question, context_titles)
+            elif args.test_data_name == "hotpot_qa":
+                long_ans, short_ans = llm_inference.predict_hotpotqa(context, question, context_titles)
         except:
             long_ans, short_ans = "", ""
         is_exact_match = single_ans_em(short_ans, answers)
         is_substring_match = has_correct_answer(long_ans, answers)
-        # is_retrieval = (item["sp"][0] in titles) and (item["sp"][1] in titles)
-        is_retrieval = has_correct_answer(context, answers)
+
+        if args.test_data_name == "nq":
+            is_retrieval = has_correct_answer(context, answers)
+        else:
+            is_retrieval = (item["sp"][0] in context_titles) and (item["sp"][1] in context_titles)
 
         output = {
             "query_id": item["query_id"],
@@ -57,10 +64,12 @@ if __name__ == "__main__":
             "is_substring_match": is_substring_match,
             "is_retrieval": is_retrieval,
         }
+
         print(output)
         tt += 1
         exact_match += is_exact_match
         substring_match += is_substring_match
+        retrieval += is_retrieval
         if tt % 10 == 0:
             print(f"Substring match: {substring_match / tt}")
             print(f"Exact match: {exact_match / tt}")
@@ -70,3 +79,5 @@ if __name__ == "__main__":
     end_time = time.time()
     print(end_time - start_time)
     print(f"Context size: {sum(context_sizes) / len(context_sizes)}")
+    print(f"Retrieval accuracy: {retrieval / len(test_data)}")
+    print(f"Exact Match: {exact_match / len(test_data)}")

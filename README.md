@@ -19,7 +19,7 @@ with Long-context LLMs". <span style="color: red;">We are still in the process t
 - [Introduction](#introduction)
 - [Installation](#installation)
 - [Quick Start](#quick-start)
-- [Corpus Preparation](#corpus)
+- [Corpus Preparation (Optional)](#corpus)
 - [Long Retriever](#long-retriever)
 - [Long Reader](#long-reader)
 - [License](#license)
@@ -43,7 +43,7 @@ pip install -r requirements.txt
 Please go to the "Long Reader" section and follow the instructions. This will help you get the final prediction for 100 examples. 
 The output will be similar to our sample files in the ``exp/`` directory.
 
-## **Corpus Preparation**
+## **Corpus Preparation (Optional)**
 
 ***Wikipedia preprocess:***
 We first preprocess Wikipedia raw data. 
@@ -87,7 +87,7 @@ quick start or debugging and using ``subset_1000`` to obtain relatively stable r
 + ``output_file_path``: The output file, here it's placed in the ``exp/`` directory.
 + ``reader_model``: The long context reader model we use, currently our code support ``GPT-4o``, ``GPT-4-Turbo``, ``Gemini-1.5-Pro``, ``Claude-3-Opus``.
 Please note that you need to update the related API key and API configuration in the code. For example, if you are using the GPT-4 series, you need to 
-configure the code in  ``utils/gpt_inference.py``; if you are using the Gemini series, you need to configure the code in  ``utils/gemini_inference``. 
+configure the code in  ``utils/gpt_inference.py``; if you are using the Gemini series, you need to configure the code in  ``utils/gemini_inference.py``. 
 We will continue to support more models in the future.
 
 The output file contains one test case per row. The ``short_ans`` field is our final prediction.
