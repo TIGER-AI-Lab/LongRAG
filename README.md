@@ -2,15 +2,21 @@
 This repo contains the code for "LongRAG: Enhancing Retrieval-Augmented Generation
 with Long-context LLMs". <span style="color: red;">We are still in the process to polish our repo.</span>
 
-### Datasets and Models
-Our dataset are all available at Huggingface.
+<a target="_blank" href="https://arxiv.org/abs/2406.15319">
+<img style="height:22pt" src="https://img.shields.io/badge/-Paper-red?style=flat&logo=arxiv"></a>
+<a target="_blank" href="https://github.com/TIGER-AI-Lab/LongRAG">
+<img style="height:22pt" src="https://img.shields.io/badge/-Code-green?style=flat&logo=github"></a>
+<a target="_blank" href="https://tiger-ai-lab.github.io/LongRAG/">
+<img style="height:22pt" src="https://img.shields.io/badge/-🌐%20Website-blue?style=flat"></a>
+<a target="_blank" href="https://https://huggingface.co/datasets/TIGER-Lab/LongRAG">
+<img style="height:22pt" src="https://img.shields.io/badge/-Tweet-blue?style=flat&logo=twitter"></a>
+<br>
 
-🤗  https://huggingface.co/datasets/TIGER-Lab/LongRAG
 
 ## **Table of Contents**
 - [Introduction](#introduction)
-- [Quick Start](#quick-start)
 - [Installation](#installation)
+- [Quick Start](#quick-start)
 - [Corpus Preparation](#corpus)
 - [Long Retriever](#long-retriever)
 - [Long Reader](#long-reader)
@@ -31,6 +37,8 @@ git clone https://github.com/TIGER-AI-Lab/LongRAG.git
 cd LongRAG
 pip install -r requirements.txt
 ```
+
+## **Quick Start**
 
 ## **Corpus Preparation**
 
@@ -118,10 +126,11 @@ Please check out the license of each subset we use in our work.
 Please cite our paper if you use our data, model or code.
 
 ```
-@article{longrag,
+@article{jiang2024longrag
   title={LongRAG: Enhancing Retrieval-Augmented Generation with Long-context LLMs},
   author={Ziyan Jiang, Xueguang Ma, Wenhu Chen},
   journal={arXiv preprint arXiv:2406.15319},
-  year={2024}
+  year={2024},
+  url={https://arxiv.org/abs/2406.15319}
 }
 ```
