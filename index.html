@@ -226,12 +226,14 @@
                         <!-- Your image here -->
                         <img src="static/images/teaser.png" alt="Traditional RAG vs. LongRAG." />
                         <h2 class="subtitle">
-                            Figure 1: Traditional RAG vs. LongRAG. (Up) Traditional RAG operates on short retrieval units, where retriever needs to scan over massive amount of units
-                            to find the relevant piece. In contrast, LongRAG operates on long retrieval units (30x longer). Retriever has a much less workload, which significantly boosts
-                            the recall score. LongRAG fully exploits the ability of long-context language models (reader) to achieve strong performance. (Middle) LongRAG vs. other RAG
-                            methods on NQ. Blue model names indicate models without fine-tuning, while red model names indicate models with fine-tuning. (Down) LongRAG vs. other
-                            RAG methods on HotpotQA.
+                            Figure 1: Traditional RAG vs. LongRAG.
                         </h2>
+                        <p style="text-align: left;">
+                            (Up) Traditional RAG operates on short retrieval units, where retriever needs to scan over massive amount of units to find the relevant piece. In contrast, LongRAG
+                            operates on long retrieval units (30x longer). Retriever has a much less workload, which significantly boosts the recall score. LongRAG fully exploits the ability
+                            of long-context language models (reader) to achieve strong performance. (Middle) LongRAG vs. other RAG methods on NQ. Blue model names indicate models without
+                            fine-tuning, while red model names indicate models with fine-tuning. (Down) LongRAG vs. other RAG methods on HotpotQA.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -239,6 +241,35 @@
     </div>
 </section>
 <!-- End image carousel -->
+
+
+
+<!-- Framework -->
+<section class="hero is-small">
+    <div class="hero-body">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-four-fifths">
+                    <h2 class="title is-3">Framework</h2>
+                    <div class="item">
+                        <!-- Your image here -->
+                        <img src="static/images/framework.png" alt="MY ALT TEXT" />
+                        <h2 class="subtitle has-text-centered">
+                            Figure 2: Our proposed LongRAG framework is comprised of two components: the Long Retriever and the Long Reader.
+                        </h2>
+                        <p style="text-align: left;">
+                             On the left side, it shows that the long retrieval unit is grouped by Wikipedia documents through hyperlinks. Each retrieval unit contains an average of 4K tokens,
+                            corresponding to multiple related documents. On the right side, it shows a multi-hop question answer test case from HotpotQA. The final result can be achieved by
+                            using only a few retrieval units, which is then fed into a long reader.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End framework -->
+
 
 
 <!-- Retrieval results -->
@@ -252,7 +283,7 @@
                         <!-- Your image here -->
                         <img src="static/images/retrieval_nq.png" alt="MY ALT TEXT" />
                         <h2 class="subtitle has-text-centered">
-                            Figure 2: The retrieval performance on NQ.
+                            Figure 3: The retrieval performance on NQ.
                         </h2>
                         <p style="text-align: left;">
                             Employing a long-context retriever (with an average number of tokens for each retrieval unit up to 6K) compresses the corpus size by up to 30 times (from 22M to
@@ -265,7 +296,7 @@
                         <!-- Your image here -->
                         <img src="static/images/retrieval_hotpotqa.png" alt="MY ALT TEXT" />
                         <h2 class="subtitle has-text-centered">
-                            Figure 2: The retrieval performance on HotpotQA.
+                            Figure 4: The retrieval performance on HotpotQA.
                         </h2>
                         <p style="text-align: left;">
                             Similar to the findings on NQ, a long-context retrieval could significantly alleviate the burden on the retriever component within the entire RAG framework.
