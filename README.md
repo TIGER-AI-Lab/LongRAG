@@ -10,7 +10,7 @@ with Long-context LLMs". <span style="color: red;">We are still in the process t
 <img style="height:22pt" src="https://img.shields.io/badge/-🌐%20Website-blue?style=flat"></a>
 <a target="_blank" href="https://huggingface.co/datasets/TIGER-Lab/LongRAG">
 <img style="height:22pt" src="https://img.shields.io/badge/-🤗%20Dataset-red?style=flat"></a>
-<a target="_blank" href="">
+<a target="_blank" href="https://x.com/WenhuChen/status/1805278871786340644">
 <img style="height:22pt" src="https://img.shields.io/badge/-Tweet-blue?style=flat&logo=twitter"></a>
 <br>
 
