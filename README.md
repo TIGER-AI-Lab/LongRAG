@@ -67,7 +67,6 @@ sh scripts/extract_and_clean_wiki_dump.sh
 ```
 
 ***Preprocess Wikipedia data***
-We are planning to release this data on huggingface too, stay tuned!
 After cleaning the Wikipedia raw data, run the following script to gather more information.
 ```bash
 sh scripts/process_wiki_page.sh
@@ -79,6 +78,10 @@ sh scripts/process_wiki_page.sh
 ``full_adj.pickle``: The key is the Wikipedia page title, and the value is the linked page in the entire page.
 ``doc_size.pickle``: The key is the Wikipedia page title, and the value is the number of tokens on that page.
 ``doc_dict.pickle``: The key is the Wikipedia page title, and the value is the text of the page.
+
+We have provided the processed Wikipedia in our [huggingface repo](https://huggingface.co/datasets/TIGER-Lab/LongRAG).
+Please check out the ``nq_wiki`` and ``hotpot_qa_wiki`` subsets for more information. You could easily derive these 
+pickle files from these two datasets.
 
 
 ***Retrieval Corpus:*** By grouping multiple related documents, we can construct long 
