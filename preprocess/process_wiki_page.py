@@ -89,19 +89,22 @@ def get_doc_size():
     for item in tqdm(processed_data, desc="Generate doc size dict"):
         if item["in_corpus"]:
             doc_size[item["title"]] = item["size"]
-        # else:
-        #     doc_size[item["title"]] = 0
 
     return doc_size
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
     parser.add_argument("--dir_path", type=str, default=None, help="Path to the cleaned Wikipedia dir)")
     parser.add_argument("--output_path_dir", type=str, default=None, help="Output dir")
+    parser.add_argument("--corpus_title_path", type=str, default=None, help="Used for filtering the title")
+
+    args = parser.parse_args()
 
     enc = tiktoken.get_encoding("cl100k_base")
-
-    file_paths = [file_path for file_path in args.dir_path.rglob('*') if file_path.is_file()]
+    file_paths = [file_path for file_path in Path(args.dir_path).rglob('*') if file_path.is_file()]
+    corpus_title_set = load_dpr_wiki(args.corpus_title_path)
+    print(f"Size of Corpus: {len(corpus_title_set)}")
 
     util = ProcessWikipedia(func=process_wiki, data=file_paths, n_processes=16)
     processed_data = util.process_data()
@@ -118,7 +121,6 @@ if __name__ == "__main__":
     save_dict_pickle(full_adj, os.path.join(args.output_path_dir, 'full_adj.pickle'))
     save_dict_pickle(doc_size, os.path.join(args.output_path_dir, 'doc_size.pickle'))
     print(f"Num of All Pages: {len(title_set)}")
-    print(f"Size of Corpus: {len(corpus_title_set)}")
 
     doc_dict = {}
     for item in tqdm(processed_data, desc="Generate doc dict"):

@@ -78,6 +78,11 @@ sh scripts/process_wiki_page.sh
 ``full_adj.pickle``: The key is the Wikipedia page title, and the value is the linked page in the entire page.
 ``doc_size.pickle``: The key is the Wikipedia page title, and the value is the number of tokens on that page.
 ``doc_dict.pickle``: The key is the Wikipedia page title, and the value is the text of the page.
++ ``corpus_title_path``: The key is used to filter the NQ dataset. In the original DPR paper, certain 
+Wikipedia pages, such as list pages and disambiguation pages, were removed, reducing the total number of 
+Wikipedia pages from 5 million to 3 million. For a fair comparison, we also chose to exclude these pages. 
+(For HotpotQA, we did not remove any pages, so the number of Wikipedia pages remains at 5 million.) 
+You can download the DPR's titles from this [link](https://dl.fbaipublicfiles.com/dpr/wikipedia_split/psgs_w100.tsv.gz).
 
 We have provided the processed Wikipedia in our [huggingface repo](https://huggingface.co/datasets/TIGER-Lab/LongRAG).
 Please check out the ``nq_wiki`` and ``hotpot_qa_wiki`` subsets for more information. You could easily derive these 
