@@ -173,7 +173,7 @@ Please check out the license of each subset we use in our work.
 Please kindly cite our paper if you find our project is useful:
 
 ```
-@article{jiang2024longrag
+@article{jiang2024longrag,
   title={LongRAG: Enhancing Retrieval-Augmented Generation with Long-context LLMs},
   author={Ziyan Jiang, Xueguang Ma, Wenhu Chen},
   journal={arXiv preprint arXiv:2406.15319},
